@@ -11,13 +11,25 @@ ini_set('display_errors', APP_DEBUG ? '1' : '0');
 ini_set('log_errors', '1');
 error_reporting(E_ALL);
 
+// Baca env dengan beberapa alias sekaligus.
+// Railway menyediakan MYSQLHOST/MYSQLPORT/dst.; shared hosting biasanya pakai DB_HOST/dst.
+function env_first(array $keys, string $default = ''): string {
+    foreach ($keys as $key) {
+        $val = getenv($key);
+        if (is_string($val) && $val !== '') {
+            return $val;
+        }
+    }
+    return $default;
+}
+
 // ---- Konfigurasi ----
-define('DB_HOST', getenv('DB_HOST') ?: 'localhost');
-define('DB_PORT', getenv('DB_PORT') ?: '3306');
-define('DB_NAME', getenv('DB_NAME') ?: 'db_libguides_custom');
-define('DB_USER', getenv('DB_USER') ?: 'root');
-define('DB_PASS', getenv('DB_PASS') ?: '');
-define('DB_CHARSET', getenv('DB_CHARSET') ?: 'utf8mb4');
+define('DB_HOST', env_first(['DB_HOST', 'MYSQLHOST'], 'localhost'));
+define('DB_PORT', env_first(['DB_PORT', 'MYSQLPORT'], '3306'));
+define('DB_NAME', env_first(['DB_NAME', 'MYSQLDATABASE'], 'db_libguides_custom'));
+define('DB_USER', env_first(['DB_USER', 'MYSQLUSER'], 'root'));
+define('DB_PASS', env_first(['DB_PASS', 'MYSQLPASSWORD'], ''));
+define('DB_CHARSET', env_first(['DB_CHARSET'], 'utf8mb4'));
 
 // ---- Opsi PDO ----
 $options = [

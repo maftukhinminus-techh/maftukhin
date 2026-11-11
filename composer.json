@@ -1,0 +1,12 @@
+{
+    "name": "maftukhin/libguides-custom",
+    "description": "Sistem perpustakaan digital (alternatif LibGuides) - PHP murni + MySQL (PDO)",
+    "type": "project",
+    "require": {
+        "php": ">=8.0",
+        "ext-pdo": "*",
+        "ext-pdo_mysql": "*",
+        "ext-fileinfo": "*",
+        "ext-mbstring": "*"
+    }
+}
