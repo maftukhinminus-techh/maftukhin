@@ -1,0 +1,12 @@
+backup/
+uploads/*
+!uploads/.htaccess
+*.zip
+*.log
+.env
+.env.*
+.DS_Store
+Thumbs.db
+*.bak
+*.tmp
+.vercel
